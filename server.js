@@ -11,10 +11,10 @@ const app = express();
 
 // ✅ MySQL Connection (pool)
 const db = mysql.createPool({
-  host: "localhost",
-  user: "root",       // 🔹 your MySQL username
-  password: "Saritadubey@2004",       // 🔹 your MySQL password
-  database: "signupDB",
+  host: process.env.DB_HOST,
+  user: process.env.DB_USER,
+  password: process.env.DB_PASS,
+  database: process.env.DB_NAME,
 });
 
 // Middleware
@@ -70,11 +70,19 @@ app.post("/signup", async (req, res) => {
   }
 });
 
-app.get("/verify-otp", (req, res) => {
-  res.render("verify-otp", { message: req.flash("message") });
-});
 
 // Start Server
 app.listen(3000, () => {
   console.log("✅ Server started: http://localhost:3000/signup");
 });
+
+// Step 1: Go to MySQL bin folder
+// In PowerShell run:
+// cd "C:\Program Files\MySQL\MySQL Server 8.0\bin"
+// Step 2: Run MySQL
+// ./mysql -u root -p
+
+
+// 1️⃣ Delete everything from table
+// Option A – just delete rows (id continue from last value)
+// DELETE FROM urs;
